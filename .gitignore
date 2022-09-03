@@ -14,4 +14,4 @@
 #*.tfvars
 
 # Ignore .pem files
-#*.pem
+*.pem
