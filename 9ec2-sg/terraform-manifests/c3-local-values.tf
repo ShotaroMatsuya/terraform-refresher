@@ -7,4 +7,16 @@ locals {
     owners = local.owners
     environment = local.environment     
   }
+  multiple_instances = {
+    0 = {
+      num_suffix    = 1
+      instance_type = "c5.large"
+      subnet_id     = element(module.vpc.private_subnets, 0)
+    }
+    1 = {
+      num_suffix    = 2
+      instance_type = "c5.large"
+      subnet_id     = element(module.vpc.private_subnets, 1)
+    }
+  }
 }

@@ -1,4 +1,4 @@
-# VPC Variables
+# VPC Variables (overwrited by this value on variable block definition)
 vpc_name = "myvpc"
 vpc_cidr_block = "10.0.0.0/16"
 vpc_availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
