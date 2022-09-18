@@ -35,9 +35,11 @@ module "elb" {
 
   # ELB attachments
   number_of_instances = var.private_instance_count
-  instances           = [
-    module.ec2_private.id[0],
-    module.ec2_private.id[1]
-  ]
+  # deprecated
+  # instances           = [
+  #   module.ec2_private.id[0],
+  #   module.ec2_private.id[1]
+  # ]
+  instances = [for instance in module.ec2_private: instance.id]
   tags = local.common_tags
 }

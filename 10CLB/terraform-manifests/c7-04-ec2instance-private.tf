@@ -16,6 +16,7 @@ module "ec2_private" {
 
   vpc_security_group_ids = [module.private_sg.security_group_id]
   subnet_id = each.value.subnet_id
-
+  # deprecated
+  # subnet_id = module.vpc.private_subnets[0]
   tags = local.common_tags
 }

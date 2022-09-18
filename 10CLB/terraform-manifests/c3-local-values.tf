@@ -12,11 +12,13 @@ locals {
       num_suffix    = 1
       instance_type = "c5.large"
       subnet_id     = element(module.vpc.private_subnets, 0)
+      # subnet_id = module.vpc.private_subnets[0]
     }
     1 = {
       num_suffix    = 2
       instance_type = "c5.large"
       subnet_id     = element(module.vpc.private_subnets, 1)
+      # subnet_id = module.vpc.private_subnets[1]
     }
   }
 }
