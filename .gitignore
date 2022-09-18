@@ -10,7 +10,7 @@
 .terraform
 *.tfstate
 *.tfstate.backup
-#.terraform.lock.hcl
+.terraform.lock.hcl
 #*.tfvars
 
 # Ignore .pem files
