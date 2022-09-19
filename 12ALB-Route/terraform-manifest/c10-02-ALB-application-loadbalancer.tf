@@ -105,7 +105,7 @@ module "alb" {
     {
       port = 443
       protocol = "HTTPS"
-      certificate_arn = module.acm.this_acm_certificate_arn
+      certificate_arn = module.acm.acm_certificate_arn
       action_type = "fixed-response"
       fixed_response = {
         content_type = "text/plain"

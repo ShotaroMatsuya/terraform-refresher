@@ -5,8 +5,8 @@ resource "aws_route53_record" "default_dns" {
   name    = "myapps.smat710.com"
   type    = "A"
   alias {
-    name                   = module.alb.this_lb_dns_name
-    zone_id                = module.alb.this_lb_zone_id
+    name                   = module.alb.lb_dns_name
+    zone_id                = module.alb.lb_zone_id
     evaluate_target_health = true
   }  
 }
@@ -17,8 +17,8 @@ resource "aws_route53_record" "default_dns" {
 #   name    = var.app1_dns_name
 #   type    = "A"
 #   alias {
-#     name                   = module.alb.this_lb_dns_name
-#     zone_id                = module.alb.this_lb_zone_id
+#     name                   = module.alb.lb_dns_name
+#     zone_id                = module.alb.lb_zone_id
 #     evaluate_target_health = true
 #   }  
 # }
@@ -30,8 +30,8 @@ resource "aws_route53_record" "default_dns" {
 #   name    = var.app2_dns_name
 #   type    = "A"
 #   alias {
-#     name                   = module.alb.this_lb_dns_name
-#     zone_id                = module.alb.this_lb_zone_id
+#     name                   = module.alb.lb_dns_name
+#     zone_id                = module.alb.lb_zone_id
 #     evaluate_target_health = true
 #   }  
 # }
