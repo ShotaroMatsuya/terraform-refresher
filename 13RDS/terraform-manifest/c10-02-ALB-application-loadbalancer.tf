@@ -128,12 +128,7 @@ module "alb" {
         }
       ]
       conditions = [{
-        # path_patterns = ["/app1*"]
-        # host_headers = [var.app1_dns_name]
-        http_headers = [{
-          http_header_name = "custom-header"
-          values = ["app-1", "app1", "my-app-1"]
-        }]
+        path_patterns = ["/app1*"]
       }]
     },
     # Rule-2: /app2* should go to App2 EC2 Instance
@@ -147,52 +142,9 @@ module "alb" {
         }
       ]
       conditions = [{
-        # path_patterns = ["/app2*"]
-        http_headers = [{
-          http_header_name = "custom-header"
-          values = ["app-2", "app2", "my-app-2"]
-        }]
+        path_patterns = ["/app2*"]
       }]
-    },
-    # Rule - 3: When Query-String, website=aws-eks redirect to https://~~~~~
-        {
-      https_listener_index = 0
-      priority = 3
-      actions = [
-        {
-          type = "redirect"
-          status_code = "HTTP_302"
-          host = "stacksimplify.com"
-          path = "/aws-eks/"
-          query = ""
-          protocol = "HTTPS"
         }
-      ]
-      conditions = [{
-        query_strings = [{
-          key = "website"
-          value = "aws-eks"
-        }]
-      }]
-    },
-    # Rule - 4: When Host Header, azure-aks.smat710.tk redirect to https://~~~~
-        {
-      https_listener_index = 0
-      priority = 4
-      actions = [
-        {
-          type = "redirect"
-          status_code = "HTTP_302"
-          host = "stacksimplify.com"
-          path = "/azure-aks/azure-kubernetes-service-introduction/"
-          query = ""
-          protocol = "HTTPS"
-        }
-      ]
-      conditions = [{
-        host_headers = ["azure-aks.smat710.tk"]
-      }]
-    },
   ]
 
   tags = local.common_tags # ALB Tags
