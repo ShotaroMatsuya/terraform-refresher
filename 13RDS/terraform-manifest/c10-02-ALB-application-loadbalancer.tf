@@ -96,7 +96,46 @@ module "alb" {
         }
       }
       tags =local.common_tags # Target Group Tags
-    }  
+    },
+    # App3 Target Group - TG Index = 2
+    {
+      name_prefix = "app3-"
+      backend_protocol = "HTTP"
+      backend_port = 8080
+      target_type = "instance"
+      deregistration_delay = 10
+      health_check = {
+        enabled = true
+        interval = 30
+        path = "/login"
+        port = "traffic-port"
+        healthy_threshold = 3
+        unhealthy_threshold = 3
+        timeout = 6
+        protocol = "HTTP"
+        matcher = "200-399"
+      }
+      stickiness = {
+        enabled = true
+        cookie_duration = 86400
+        type = "lb_cookie"
+      }
+      protocol_version = "HTTP1"
+      # App3 target Group - Targets
+      targets = {
+        my_app3_vm1 = {
+          # target_id = module.ec2_private_app3.id[0]
+          target_id = element([for instance in module.ec2_private_app3: instance.id], 0)
+          port = 8080
+        },
+        my_app3_vm2 = {
+          # target_id = module.ec2_private_app3.id[1]
+          target_id = element([for instance in module.ec2_private_app3: instance.id], 1)
+          port = 8080
+        },
+      }
+      tags =local.common_tags # Target Group Tags
+    }
   ]
 
   # HTTPS Listener
@@ -144,7 +183,21 @@ module "alb" {
       conditions = [{
         path_patterns = ["/app2*"]
       }]
+    },
+    # Rule-3: /* should go to App3 - user-mgmt-WebApp EC2 Instances
+    {
+      https_listener_index = 0
+      priority = 3
+      actions = [
+        {
+          type = "forward"
+          target_group_index = 2
         }
+      ]
+      conditions = [{
+        path_patterns = ["/*"]
+      }]
+    }
   ]
 
   tags = local.common_tags # ALB Tags
