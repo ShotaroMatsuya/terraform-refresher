@@ -47,3 +47,22 @@ output "app2_ec2_private_ip" {
     for myec2vm in module.ec2_private_app2 : myec2vm.private_ip
   ])
 }
+
+# App3 - Private EC2 Instances
+## ec2_private_instance_ids
+output "app3_ec2_private_instance_ids" {
+  description = "List of IDs of instances"
+  # for_eachで回したので変更
+  value       = toset([
+    for myec2vm in module.ec2_private_app3 : myec2vm.private_ip
+  ])
+}
+
+## ec2_private_ip
+output "app3_ec2_private_ip" {
+  description = "List of private IP addresses assigned to the instances"
+  # for_eachで回したので変更
+  value       = toset([
+    for myec2vm in module.ec2_private_app3 : myec2vm.private_ip
+  ])
+}
