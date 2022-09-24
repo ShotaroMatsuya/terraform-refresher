@@ -10,6 +10,10 @@ terraform {
       source = "hashicorp/null"
       version = "~> 3.0.0"
     }
+    random = {
+      source ="hashicorp/random"
+      version ="~> 3.0"
+    }
   }
 }
 
@@ -19,3 +23,7 @@ provider "aws" {
   profile = "default"
 }
 
+# Create Random Pet Resource 
+resource "random_pet" "this" {
+  length = 2
+}
