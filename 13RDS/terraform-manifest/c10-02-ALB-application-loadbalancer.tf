@@ -88,7 +88,7 @@ module "alb" {
           target_id = element([for instance in module.ec2_private_app2: instance.id], 0)
           port      = 80
         },
-        my_app1_vm2 = {
+        my_app2_vm2 = {
           # target_id = module.ec2_private.id[1]
           target_id = element([for instance in module.ec2_private_app2: instance.id], 1)
           
