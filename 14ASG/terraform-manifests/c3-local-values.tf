@@ -22,16 +22,9 @@ locals {
     }
   }
 
-  asg_tags = [
-    {
-      key = "Project"
-      value = "megasecret"
-      propagate_at_launch = true
-    },
-    {
-      key = "foo"
-      value = ""
-      propagate_at_launch = true
-    }
-  ]
+  asg_tags = {
+    Project = "megasecret",
+    foo = ""
+    propagate_at_launch = true
+  }
 }
