@@ -16,7 +16,7 @@ resource "aws_sns_topic_subscription" "myasg_sns_topic_subscription" {
 
 ## Create Autoscaling Notification Resource
 resource "aws_autoscaling_notification" "myasg_notifications" {
-  group_names = [module.autoscaling.autoscaling_group_id]
+  group_names = [aws_autoscaling_group.my_asg.id]
   notifications = [
     "autoscaling:EC2_INSTANCE_LAUNCH",
     "autoscaling:EC2_INSTANCE_TERMINATE",
