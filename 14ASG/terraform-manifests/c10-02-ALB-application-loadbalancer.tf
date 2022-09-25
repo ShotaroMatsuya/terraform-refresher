@@ -60,9 +60,9 @@ module "alb" {
           
           port      = 80
         }
-      } */
-      tags =local.common_tags # Target Group Tags
-    }
+      } 
+      tags =local.common_tags # Target Group Tags*/
+    },
   ]
 
   # HTTPS Listener
