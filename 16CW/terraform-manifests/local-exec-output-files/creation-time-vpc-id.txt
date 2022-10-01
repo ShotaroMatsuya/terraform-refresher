@@ -38,3 +38,5 @@ VPC created on Sun Sep 25 18:20:55 JST 2022 and VPC ID: vpc-0eb00dcf7a1c8cadc
 VPC created on Sun Sep 25 18:56:17 JST 2022 and VPC ID: vpc-0d9c194d53e5895f7
 VPC created on Sun Sep 25 19:05:21 JST 2022 and VPC ID: vpc-012561ae610e50ffd
 VPC created on Sun Sep 25 19:28:11 JST 2022 and VPC ID: vpc-0081de1935aa0ef10
+VPC created on Sat Oct 1 16:19:30 JST 2022 and VPC ID: vpc-05cc061aaeae0410d
+VPC created on Sat Oct 1 16:39:39 JST 2022 and VPC ID: vpc-027baa84f8c2aa692
