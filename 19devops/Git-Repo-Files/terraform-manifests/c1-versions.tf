@@ -15,6 +15,8 @@ terraform {
       version ="~> 3.0"
     }
   }
+  # Adding Backend as S3 for Remote State Storage
+  backend "s3" {}
 }
 
 # Provider Block
