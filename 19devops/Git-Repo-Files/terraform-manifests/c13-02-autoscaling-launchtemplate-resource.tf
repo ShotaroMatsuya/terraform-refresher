@@ -1,6 +1,7 @@
 # Launch Template Resource
 resource "aws_launch_template" "my_launch_template" {
-  name = "my-launch-template"
+  # name = "my-launch-template"
+  name = "${local.name}-"
   description = "My Launch template"
   image_id = data.aws_ami.amzlinux2.id
   instance_type = var.instance_type
@@ -31,7 +32,8 @@ resource "aws_launch_template" "my_launch_template" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "myasg"
+      # Name = "myasg"
+      Name = local.name
     }
   }  
 }

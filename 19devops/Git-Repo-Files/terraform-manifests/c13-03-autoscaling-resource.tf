@@ -1,7 +1,7 @@
 # Autoscaling Group Resource
 resource "aws_autoscaling_group" "my_asg" {
   depends_on = [ module.vpc ] # VERY VERY IMPORTANT else userdata webserver provisioning will fail
-  name_prefix = "myasg-"
+  name_prefix = "${local.name}-"
   desired_capacity = 2
   max_size = 10
   min_size = 2
