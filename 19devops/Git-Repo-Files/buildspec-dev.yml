@@ -28,7 +28,7 @@ phases:
     commands:
       # Project-1: AWS VPC, ASG, ALB, Route53, ACM, Security Groups and SNS
       - cd "$CODEBUILD_SRC_DIR/19devops/Git-Repo-Files/terraform-manifests"
-      - ls -lrt "$CODEBUILD_SRC_DIR/terraform-manifests"
+      - ls -lrt "$CODEBUILD_SRC_DIR/19devops/Git-Repo-Files/terraform-manifests"
       - terraform --version
       - terraform init -input=false --backend-config=dev.conf
       - terraform validate
