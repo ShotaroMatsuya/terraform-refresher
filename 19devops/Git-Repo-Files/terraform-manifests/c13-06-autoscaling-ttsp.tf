@@ -17,6 +17,9 @@ resource "aws_autoscaling_policy" "avg_cpu_policy_greater_than_xx" {
 
 # TTS - Scaling Policy-2: Based on ALB Target Requests
 resource "aws_autoscaling_policy" "alb_target_requests_greater_than_yy" {
+  depends_on = [
+    module.alb
+  ]
   name                   = "${local.name}-alb-target-requests-greater-than-yy"
   policy_type = "TargetTrackingScaling" # Important Note: The policy type, either "SimpleScaling", "StepScaling" or "TargetTrackingScaling". If this value isn't provided, AWS will default to "SimpleScaling."    
   autoscaling_group_name = aws_autoscaling_group.my_asg.id
