@@ -3,12 +3,12 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "8.0.0"
 
-  name = "${local.name}-alb"
+  name               = "${local.name}-alb"
   load_balancer_type = "application"
   # vpc_id = module.vpc.vpc_id
   # subnets = module.vpc.public_subnets
 
-  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id  = data.terraform_remote_state.vpc.outputs.vpc_id
   subnets = data.terraform_remote_state.vpc.outputs.public_subnets
 
   security_groups = [module.loadbalancer_sg.security_group_id]
@@ -16,16 +16,16 @@ module "alb" {
   # HTTP Listener - HTTP to HTTPS Redirect
   http_tcp_listeners = [
     {
-      port               = 80
-      protocol           = "HTTP"
+      port        = 80
+      protocol    = "HTTP"
       action_type = "redirect"
       redirect = {
-        port = "443"
-        protocol = "HTTPS"
+        port        = "443"
+        protocol    = "HTTPS"
         status_code = "HTTP_301"
       }
     }
-  ]  
+  ]
   # Target Groups
   target_groups = [
     # App1 Target Group - TG Index = 0
@@ -69,14 +69,14 @@ module "alb" {
   https_listeners = [
     # HTTPS listener index = 0 for HTTPS 443
     {
-      port = 443
-      protocol = "HTTPS"
+      port            = 443
+      protocol        = "HTTPS"
       certificate_arn = module.acm.acm_certificate_arn
-      action_type = "fixed-response"
+      action_type     = "fixed-response"
       fixed_response = {
         content_type = "text/plain"
         message_body = "Fixed Static message - for Root Context"
-        status_code = "200"
+        status_code  = "200"
       }
     }
   ]
@@ -86,10 +86,10 @@ module "alb" {
     # Rule-1: /app1* should go to App1 EC2 Instance
     {
       https_listener_index = 0
-      priority = 1
+      priority             = 1
       actions = [
         {
-          type = "forward"
+          type               = "forward"
           target_group_index = 0
         }
       ]

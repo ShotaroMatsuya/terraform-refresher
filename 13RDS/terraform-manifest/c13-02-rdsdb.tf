@@ -2,10 +2,10 @@
 module "rdsdb" {
   source  = "terraform-aws-modules/rds/aws"
   version = "5.1.0"
-  
+
   identifier = var.db_instance_identifier
 
-  db_name     = var.db_name  # Initial Database Name
+  db_name  = var.db_name # Initial Database Name
   username = var.db_username
   password = var.db_password
   port     = 3306

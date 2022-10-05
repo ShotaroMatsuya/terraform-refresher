@@ -2,7 +2,7 @@
 
 resource "aws_s3_bucket" "s3_bucket" {
   bucket = var.bucket_name
-  acl = "public-read"
+  acl    = "public-read"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,6 +25,6 @@ EOF
     index_document = "index.html"
     error_document = "error.html"
   }
-  tags = var.tags
+  tags          = var.tags
   force_destroy = true
 }

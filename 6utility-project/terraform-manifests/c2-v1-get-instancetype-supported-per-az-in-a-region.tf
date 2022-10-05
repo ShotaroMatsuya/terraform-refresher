@@ -15,5 +15,5 @@ data "aws_ec2_instance_type_offerings" "my_ins_type1" {
 
 # Output
 output "output_v1_1" {
- value = data.aws_ec2_instance_type_offerings.my_ins_type1.instance_types
+  value = data.aws_ec2_instance_type_offerings.my_ins_type1.instance_types
 }

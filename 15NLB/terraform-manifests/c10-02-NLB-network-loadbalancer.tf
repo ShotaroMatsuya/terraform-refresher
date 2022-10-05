@@ -1,13 +1,13 @@
 # Terraform AWS Network Load Balancer (NLB)
 module "nlb" {
-  source  = "terraform-aws-modules/alb/aws"
-  version = "8.1.0"
+  source      = "terraform-aws-modules/alb/aws"
+  version     = "8.1.0"
   name_prefix = "mynlb-"
   #name = "complete-nlb-${random_pet.this.id}"
   load_balancer_type = "network"
-  vpc_id = module.vpc.vpc_id
-  subnets = module.vpc.public_subnets
-  
+  vpc_id             = module.vpc.vpc_id
+  subnets            = module.vpc.public_subnets
+
   #  TCP Listener 
   http_tcp_listeners = [
     {

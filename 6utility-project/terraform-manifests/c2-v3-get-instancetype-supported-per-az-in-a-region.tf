@@ -9,7 +9,7 @@ data "aws_availability_zones" "my_azones" {
 # Check if that respective Instance Type is supported in that Specific Region in list of availability Zones
 # Get the List of Availability Zones in a Particular region where that respective Instance Type is supported
 data "aws_ec2_instance_type_offerings" "my_ins_type" {
-for_each=toset(data.aws_availability_zones.my_azones.names)
+  for_each = toset(data.aws_availability_zones.my_azones.names)
   filter {
     name   = "instance-type"
     values = ["t3.micro"]
@@ -24,7 +24,7 @@ for_each=toset(data.aws_availability_zones.my_azones.names)
 
 # Basic Output: All Availability Zones mapped to Supported Instance Types
 output "output_v3_1" {
- value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type :
+  value = { for az, details in data.aws_ec2_instance_type_offerings.my_ins_type :
   az => details.instance_types }
 }
 

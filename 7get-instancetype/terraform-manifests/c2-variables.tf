@@ -2,39 +2,39 @@
 # AWS Region
 variable "aws_region" {
   description = "Region in which AWS Resources to be created"
-  type = string
-  default = "us-east-1"
+  type        = string
+  default     = "us-east-1"
 }
 
 # AWS EC2 Instance Type
 variable "instance_type" {
   description = "EC2 Instance Type"
-  type = string
-  default = "t3.micro"
+  type        = string
+  default     = "t3.micro"
 }
 
 # AWS EC2 Instance Key Pair
 variable "instance_keypair" {
   description = "AWS EC2 Key Pair that need to be associated with EC2 Instance"
-  type = string
-  default = "terraform-key"
+  type        = string
+  default     = "terraform-key"
 }
 
 # AWS EC2 Instance Type - List
 variable "instance_type_list" {
   description = "EC2 Instnace Type"
-  type = list(string)
-  default = ["t3.micro", "t3.small", "ts.large"]
+  type        = list(string)
+  default     = ["t3.micro", "t3.small", "ts.large"]
 }
 
 
 # AWS EC2 Instance Type - Map
 variable "instance_type_map" {
   description = "EC2 Instnace Type"
-  type = map(string)
+  type        = map(string)
   default = {
-    "dev" = "t3.micro"
-    "qa"  = "t3.small"
+    "dev"  = "t3.micro"
+    "qa"   = "t3.small"
     "prod" = "t3.large"
   }
 }
@@ -42,6 +42,6 @@ variable "instance_type_map" {
 # AWS DEFAULT VPC ID
 variable "aws_default_vpc" {
   description = "VPC id in which AWS security groups to be created"
-  type = string
-  default = "vpc-c9bc72b4"
+  type        = string
+  default     = "vpc-c9bc72b4"
 }

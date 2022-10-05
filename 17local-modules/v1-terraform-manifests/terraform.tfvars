@@ -1,5 +1,5 @@
 bucket_name = "mybucket-56545"
 tags = {
-  Terraform = "true"
+  Terraform   = "true"
   Environment = "dev"
 }

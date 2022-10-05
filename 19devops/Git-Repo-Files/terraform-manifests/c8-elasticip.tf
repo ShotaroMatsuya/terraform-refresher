@@ -5,7 +5,7 @@ resource "aws_eip" "bastion_eip" {
     module.ec2_public,
     module.vpc
   ]
-  instance =  module.ec2_public.id
-  vpc = true
-  tags = local.common_tags
+  instance = module.ec2_public.id
+  vpc      = true
+  tags     = local.common_tags
 }

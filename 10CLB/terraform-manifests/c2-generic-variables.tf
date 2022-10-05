@@ -2,18 +2,18 @@
 # AWS Region
 variable "aws_region" {
   description = "Region in which AWS Resources to be created"
-  type = string
-  default = "ap-northeast-1"
+  type        = string
+  default     = "ap-northeast-1"
 }
 # Environment Variable
 variable "environment" {
   description = "Environment Variable used as a prefix"
-  type = string
-  default = "dev"
+  type        = string
+  default     = "dev"
 }
 # Business Division
 variable "business_divsion" {
   description = "Business Division in the large organization this Infrastructure belongs"
-  type = string
-  default = "HR"
+  type        = string
+  default     = "HR"
 }

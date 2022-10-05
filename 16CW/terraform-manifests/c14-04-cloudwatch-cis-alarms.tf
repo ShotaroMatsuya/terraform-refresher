@@ -11,7 +11,7 @@ module "all_cis_alarms" {
 
   disabled_controls = ["DisableOrDeleteCMK", "VPCChanges"]
 
-  log_group_name = aws_cloudwatch_log_group.cis_log_group.name 
+  log_group_name = aws_cloudwatch_log_group.cis_log_group.name
   alarm_actions  = [aws_sns_topic.myasg_sns_topic.arn]
-  tags = local.common_tags
+  tags           = local.common_tags
 }

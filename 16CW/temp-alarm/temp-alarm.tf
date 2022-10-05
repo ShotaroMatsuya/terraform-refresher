@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "temp" {
-  
+
 }
 
 /* Create my terraform import command

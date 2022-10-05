@@ -38,5 +38,5 @@ output "azs" {
 
 output "database_subnet_group_name" {
   description = "Name of database subnet group"
-  value = module.vpc.database_subnet_group_name
+  value       = module.vpc.database_subnet_group_name
 }

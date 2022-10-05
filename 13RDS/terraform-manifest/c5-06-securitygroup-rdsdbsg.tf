@@ -18,6 +18,6 @@ module "rdsdb_sg" {
     },
   ]
   # Egress Rule - all-all open
-  egress_rules = ["all-all"]  
-  tags = local.common_tags  
+  egress_rules = ["all-all"]
+  tags         = local.common_tags
 }

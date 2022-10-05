@@ -1,11 +1,11 @@
 # Define Local Values in Terraform
 locals {
-  owners = var.business_divsion
+  owners      = var.business_divsion
   environment = var.environment
-  name = "${var.business_divsion}-${var.environment}"
+  name        = "${var.business_divsion}-${var.environment}"
   common_tags = {
-    owners = local.owners
-    environment = local.environment     
+    owners      = local.owners
+    environment = local.environment
   }
   multiple_instances = {
     0 = {
@@ -23,8 +23,8 @@ locals {
   }
 
   asg_tags = {
-    Project = "megasecret",
-    foo = ""
+    Project             = "megasecret",
+    foo                 = ""
     propagate_at_launch = true
   }
 }

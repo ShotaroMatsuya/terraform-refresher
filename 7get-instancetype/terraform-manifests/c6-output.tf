@@ -4,8 +4,8 @@ output "instance_publicip" {
   #value = aws_instance.myec2vm.*.public_ip   # Legacy Splat
   #value = aws_instance.myec2vm[*].public_ip  # Latest Splat
   value = toset([
-      for myec2vm in aws_instance.myec2vm : myec2vm.public_ip
-    ])
+    for myec2vm in aws_instance.myec2vm : myec2vm.public_ip
+  ])
 }
 
 # EC2 Instance Public DNS with TOSET
@@ -14,8 +14,8 @@ output "instance_publicdns" {
   #value = aws_instance.myec2vm[*].public_dns  # Legacy Splat
   #value = aws_instance.myec2vm[*].public_dns  # Latest Splat
   value = toset([
-      for myec2vm in aws_instance.myec2vm : myec2vm.public_dns
-    ])
+    for myec2vm in aws_instance.myec2vm : myec2vm.public_dns
+  ])
 }
 
 # EC2 Instance Public DNS with MAPS
