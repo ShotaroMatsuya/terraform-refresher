@@ -17,3 +17,9 @@ variable "owners" {
   type        = string
   default     = "matsuya"
 }
+
+variable "aws_account_id" {
+  description = "Account ID in which AWS Resoruces to be created"
+  type        = string
+  default     = "528163014577"
+}

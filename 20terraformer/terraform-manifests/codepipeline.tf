@@ -181,49 +181,6 @@ resource "aws_codepipeline" "main" {
 
     name = "Build"
   }
-
-  /*
-  stage {
-    action {
-      category = "Approval"
-
-      configuration = {
-        CustomData         = "リンクから承認すると現在のstgがprodに反映されます"
-        ExternalEntityLink = "https://www.google.com"
-        NotificationArn    = "arn:aws:sns:ap-northeast-1:266309316896:CodeStarNotifications-*"
-      }
-
-      name      = "ApprovePromotionTo-prod"
-      owner     = "AWS"
-      provider  = "Manual"
-      region    = var.aws_region
-      run_order = "1"
-      version   = "1"
-    }
-
-    action {
-      category = "Deploy"
-
-      configuration = {
-        ActionMode            = "CREATE_UPDATE"
-        Capabilities          = "CAPABILITY_IAM,CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND"
-        ChangeSetName         = "qb-medical-staff-cms-prod-cms-master"
-        RoleArn               = "arn:aws:iam::266309316896:role/*"
-        StackName             = "qb-medical-staff-cms-prod-cms-master"
-      }
-
-      input_artifacts = ["BuildOutput"]
-      name            = "CreateOrUpdate-cms-master-prod"
-      owner           = "AWS"
-      provider        = "CloudFormation"
-      region          = "ap-northeast-1"
-      run_order       = "2"
-      version         = "1"
-    }
-
-    name = "DeployTo-prod"
-  }
-  */
   stage {
     action {
       category = "Deploy"
@@ -246,7 +203,76 @@ resource "aws_codepipeline" "main" {
 
     name = "Deploy"
   }
+  /*
+  stage {
+    action {
+      category = "Approval"
+
+      configuration = {
+        CustomData         = "リンクから承認すると現在のstgがprodに反映されます"
+        ExternalEntityLink = "https://www.google.com"
+        NotificationArn    = aws_sns_topic.main.arn
+      }
+
+      name      = "ApprovePromotionTo-prod"
+      owner     = "AWS"
+      provider  = "Manual"
+      region    = var.aws_region
+      run_order = "1"
+      version   = "1"
+    }
+
+    action {
+      category = "Deploy"
+
+      configuration = {
+        ClusterName = aws_ecs_cluster.main.name
+        FileName    = "imagedefinitions.json"
+        ServiceName = aws_ecs_service.main.name
+      }
+
+      input_artifacts = ["BuildOutput"]
+      name            = "Deploy"
+      namespace       = "DeployVariables"
+      owner           = "AWS"
+      provider        = "ECS"
+      region          = var.aws_region
+      run_order       = "1"
+      version         = "1"
+    }
+
+    name = "DeployTo-prod"
+  }
+*/
 
   tags = local.common_tags
 
+}
+
+## Notification: CodePipeline app
+resource "aws_codestarnotifications_notification_rule" "pipeline" {
+  detail_type = "BASIC"
+  event_type_ids = [
+    "codepipeline-pipeline-stage-execution-started",
+    "codepipeline-pipeline-stage-execution-succeeded",
+    "codepipeline-pipeline-stage-execution-resumed",
+    "codepipeline-pipeline-stage-execution-canceled",
+    "codepipeline-pipeline-stage-execution-failed",
+    "codepipeline-pipeline-pipeline-execution-failed",
+    "codepipeline-pipeline-pipeline-execution-canceled",
+    "codepipeline-pipeline-pipeline-execution-started",
+    "codepipeline-pipeline-pipeline-execution-resumed",
+    "codepipeline-pipeline-pipeline-execution-succeeded",
+    "codepipeline-pipeline-pipeline-execution-superseded",
+    "codepipeline-pipeline-manual-approval-failed",
+    "codepipeline-pipeline-manual-approval-needed",
+    "codepipeline-pipeline-manual-approval-succeeded",
+  ]
+
+  name     = "codepipeline-notify-for-dev-app"
+  resource = aws_codepipeline.main.arn
+
+  target {
+    address = aws_sns_topic.main.arn
+  }
 }
