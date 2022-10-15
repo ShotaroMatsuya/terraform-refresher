@@ -32,3 +32,7 @@ output "aws_ecs_task_definition_revision" {
   description = "Revision of the task in a particular family."
   value       = aws_ecs_task_definition.main.revision
 }
+
+output "aws_cloudwatch_firelens_log_group_id" {
+  value = aws_cloudwatch_log_group.firelens.id
+}

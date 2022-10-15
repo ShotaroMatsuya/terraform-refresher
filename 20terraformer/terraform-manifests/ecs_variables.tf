@@ -1,25 +1,5 @@
 # ECS Input Variables
 # ECS Cluster Name
-# variable "ecs_cluster_name" {
-#   description = "ECS Cluster Name"
-#   type        = string
-#   default     = "myvpc"
-# }
-
-# # VPC Name
-# variable "ecs_service_name" {
-#   description = "VPC Name"
-#   type        = string
-#   default     = "myvpc"
-# }
-
-# # VPC CIDR Block
-# variable "ecs_task_name" {
-#   description = "VPC CIDR Block"
-#   type        = string
-#   default     = "10.0.0.0/16"
-# }
-
 variable "cluster_settings" {
   description = "Configuration block(s) with cluster settings. For example, this can be used to enable CloudWatch Container Insights for a cluster"
   type        = map(string)
