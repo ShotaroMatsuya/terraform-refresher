@@ -6,7 +6,7 @@ module "fargate-start-function" {
   ]
   function_name          = "${random_pet.this.id}-fargate-start-${local.name}"
   description            = "My awesome lambda function"
-  handler                = "index.lambda_handler"
+  handler                = "start.lambda_handler"
   runtime                = "python3.9"
   ephemeral_storage_size = 512
   architectures          = ["x86_64"]
@@ -31,7 +31,7 @@ module "fargate-stop-function" {
   ]
   function_name          = "${random_pet.this.id}-fargate-stop-${local.name}"
   description            = "My awesome lambda function"
-  handler                = "index.lambda_handler"
+  handler                = "stop.lambda_handler"
   runtime                = "python3.9"
   ephemeral_storage_size = 512
   architectures          = ["x86_64"]
