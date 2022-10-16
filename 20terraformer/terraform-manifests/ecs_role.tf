@@ -80,6 +80,15 @@ resource "aws_iam_role_policy" "execution_policy" {
                 "logs:CreateLogGroup",
                 "logs:DescribeLogStreams"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Resource": "*",
+            "Action": [
+              "ssm:Getparameters",
+              "secretsmanager:GetSecretValue",
+              "kms:Descypt"
+            ]
         }
     ]
 }
