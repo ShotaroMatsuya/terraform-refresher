@@ -22,3 +22,26 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+# DB Security Group Ids
+variable "db_security_group_ids" {
+  description = "AWS RDS Database Security Group Ids"
+}
+variable "db_subnet_ids" {
+  description = "AWS RDS Tatabase Subnets Ids"
+}
+
+
+variable "owners" {}
+variable "environment" {}
+
+locals {
+  owners      = var.owners
+  environment = var.environment
+  name        = "${var.owners}-${var.environment}"
+  common_tags = {
+    owners      = local.owners
+    environment = local.environment
+  }
+}
+

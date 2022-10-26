@@ -12,8 +12,8 @@ module "rdsdb" {
 
 
   multi_az               = true
-  subnet_ids             = module.vpc.database_subnets
-  vpc_security_group_ids = [module.rds_aurora_sg.security_group_id]
+  subnet_ids             = var.db_subnet_ids
+  vpc_security_group_ids = [var.db_security_group_ids]
   create_db_subnet_group = true
   # db_subnet_group_name = module.vpc.database_subnet_group_name
   create_random_password = false

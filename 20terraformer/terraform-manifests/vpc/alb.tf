@@ -43,16 +43,7 @@ module "alb" {
         matcher             = "200"
       }
       protocol_version = "HTTP1"
-      # targets = {
-      #   my_ec2 = {
-      #     target_id = aws_instance.this.id
-      #     port      = 80
-      #   },
-      #   my_ec2_again = {
-      #     target_id = aws_instance.this.id
-      #     port      = 8080
-      #   }
-      # }
+
       tags = local.common_tags
     }
   ]

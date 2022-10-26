@@ -15,3 +15,7 @@
 
 # Ignore .pem files
 *.pem
+
+**/*/builds/*.zip
+
+.dccache
