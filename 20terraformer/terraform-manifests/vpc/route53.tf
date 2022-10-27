@@ -1,3 +1,8 @@
+# Get DNS information from AWS Route53
+data "aws_route53_zone" "mydomain" {
+  name = "smat710.tk"
+}
+
 # DNS Registration 
 resource "aws_route53_record" "apps_dns" {
   zone_id = data.aws_route53_zone.mydomain.zone_id
