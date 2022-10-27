@@ -3,6 +3,11 @@ output "ecs_cluster_id" {
   value       = aws_ecs_cluster.main.id
 }
 
+output "ecs_cluster_name" {
+  description = "Name of the cluster."
+  value       = aws_ecs_cluster.main.name
+}
+
 output "ecs_service_id" {
   description = "ARN that identifies the service."
   value       = aws_ecs_service.main.id

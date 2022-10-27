@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "main" {
-  name                                     = "${local.name}-sns-topic-${random_pet.this.id}"
+  name                                     = var.sns_topic_name
   application_success_feedback_sample_rate = "0"
   content_based_deduplication              = "false"
   display_name                             = "Reserved for notifications from AWS Chatbot to Slack"

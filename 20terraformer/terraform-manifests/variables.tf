@@ -19,3 +19,12 @@ variable "aws_account_id" {
   description = "Account ID in which AWS Resoruces to be created"
   type        = string
 }
+locals {
+  owners      = var.owners
+  environment = var.environment
+  name        = "${var.owners}-${var.environment}"
+  common_tags = {
+    owners      = local.owners
+    environment = local.environment
+  }
+}

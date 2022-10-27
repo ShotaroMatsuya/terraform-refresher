@@ -56,3 +56,22 @@ module "custom_ecs" {
   environment = "test"
   aws_region  = var.aws_region
 }
+
+module "custom_lambda" {
+  source = "./lambda"
+  depends_on = [
+    module.custom_ecs
+  ]
+  ecs_cluster   = module.custom_ecs.ecs_cluster_name
+  ecs_service   = module.custom_ecs.ecs_service_name
+  sns_topic_arn = module.custom_sns.sns_topic_arn
+
+  owners      = "matsuya"
+  environment = "test"
+}
+module "custom_sns" {
+  source         = "./sns"
+  sns_topic_name = "${local.name}-sns-topic-${random_pet.this.id}"
+  owners         = "matsuya"
+  environment    = "test"
+}

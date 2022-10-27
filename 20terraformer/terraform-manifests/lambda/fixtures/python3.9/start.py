@@ -6,7 +6,7 @@ import boto3
 
 
 def get_schedule_logger():
-    log_format = '[cms-schedule-%(levelname)s][%(aws_request_id)s][%(funcName)s:%(lineno)d]\t%(message)s'
+    log_format = "[cms-schedule-%(levelname)s][%(aws_request_id)s][%(funcName)s:%(lineno)d]\t%(message)s"
     formatter = logging.Formatter(log_format)
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -19,7 +19,7 @@ logger = get_schedule_logger()
 
 
 def control_cloudwatch_alarm():
-    client = boto3.client('cloudwatch')
+    client = boto3.client("cloudwatch")
 
     try:
         client.enable_alarm_actions(
@@ -27,7 +27,7 @@ def control_cloudwatch_alarm():
             AlarmNames=[
                 os.environ["CWA_TASK_COUNT"],
                 os.environ["CWA_SERVICE_CPU"],
-                os.environ["CWA_SERVICE_MEMORY"]
+                os.environ["CWA_SERVICE_MEMORY"],
             ]
         )
         logger.info("Enabling CloudWatch Alarm")
@@ -36,14 +36,14 @@ def control_cloudwatch_alarm():
 
 
 def control_ecs_cluster():
-    client = boto3.client('ecs')
+    client = boto3.client("ecs")
     # 起動するECS クラスターとサービスを指定
     try:
-        for cluster_name, service_name in [(os.environ["ECS_CLUSTER"], os.environ["ECS_SERVICE"])]:
+        for cluster_name, service_name in [
+            (os.environ["ECS_CLUSTER"], os.environ["ECS_SERVICE"])
+        ]:
             service_update_result = client.update_service(
-                cluster=cluster_name,
-                service=service_name,
-                desiredCount=1
+                cluster=cluster_name, service=service_name, desiredCount=1
             )
             logger.info(service_update_result)
     except Exception as e:
