@@ -21,15 +21,15 @@ resource "aws_ecs_service" "main" {
   load_balancer {
     container_name   = var.proxy_container_name
     container_port   = var.proxy_port
-    target_group_arn = element(module.alb.target_group_arns, 0)
+    target_group_arn = element(var.alb_target_group_arns, 0)
   }
 
   name = "${local.name}-service"
 
   network_configuration {
     assign_public_ip = "true"
-    security_groups  = [module.fargate_sg.security_group_id]
-    subnets          = module.vpc.public_subnets
+    security_groups  = [var.fargate_security_group_id]
+    subnets          = var.public_subnets_ids
   }
 
   platform_version    = "LATEST"
@@ -37,8 +37,7 @@ resource "aws_ecs_service" "main" {
   task_definition     = aws_ecs_task_definition.main.family
 
   depends_on = [
-    aws_ecs_task_definition.main,
-    module.alb
+    aws_ecs_task_definition.main
   ]
   provisioner "local-exec" {
     command     = "echo Destroy time prov `date` >> destroy-time-prov.txt"

@@ -15,16 +15,44 @@ module "custom_vpc" {
   owners      = "matsuya"
   environment = "test"
 }
-
+/*
 module "custom_rds" {
   source                 = "./rds"
-  db_name                = data.external.aurora_credentials_json.result["dbname"]
   db_instance_identifier = "webappdb"
-  db_username            = data.external.aurora_credentials_json.result["username"]
-  db_password            = data.external.aurora_credentials_json.result["password"]
   db_security_group_ids  = module.custom_vpc.rds_aurora_sg_group_id
   db_subnet_ids          = module.custom_vpc.database_subnets
 
   owners      = "matsuya"
   environment = "test"
+}
+*/
+module "custom_ecs" {
+  source = "./ecs"
+  depends_on = [
+    module.custom_vpc
+  ]
+  cluster_settings = {
+    "name" : "containerInsights",
+    "value" : "enabled"
+  }
+  proxy_port           = 80
+  proxy_container_name = "nginx"
+  fargate_cpu          = 256
+  fargate_memory       = 512
+  nginx_image_uri      = "528163014577.dkr.ecr.us-east-2.amazonaws.com/test/nginx"
+  php_image_uri        = "528163014577.dkr.ecr.us-east-2.amazonaws.com/test/php"
+  fluentbit_image_uri  = "528163014577.dkr.ecr.us-east-2.amazonaws.com/test/fluentbit"
+  nginx_container_port = 80
+  php_container_port   = 9000
+  firelens_log_group   = "/aws/ecs/matsuyatest-firelens-logs"
+  ecs_volume_name      = "log-volume"
+  ecs_volume_path      = "/var/www/html/logs"
+
+  alb_target_group_arns     = module.custom_vpc.target_group_arns
+  fargate_security_group_id = module.custom_vpc.fargate_sg_group_id
+  public_subnets_ids        = module.custom_vpc.public_subnets
+
+  owners      = "matsuya"
+  environment = "test"
+  aws_region  = var.aws_region
 }
