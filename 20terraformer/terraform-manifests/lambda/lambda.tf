@@ -11,6 +11,12 @@ module "fargate-start-function" {
 
   source_path = ["${path.module}/fixtures/python3.9/start.py"]
 
+  allowed_triggers = {
+    OneRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = "${aws_cloudwatch_event_rule.fargate_start.arn}"
+    }
+  }
   environment_variables = {
     ECS_SERVICE        = var.ecs_service
     ECS_CLUSTER        = var.ecs_cluster
@@ -33,6 +39,12 @@ module "fargate-stop-function" {
 
   source_path = ["${path.module}/fixtures/python3.9/stop.py"]
 
+  allowed_triggers = {
+    OneRule = {
+      principal  = "events.amazonaws.com"
+      source_arn = "${aws_cloudwatch_event_rule.fargate_stop.arn}"
+    }
+  }
   environment_variables = {
     ECS_SERVICE        = var.ecs_service
     ECS_CLUSTER        = var.ecs_cluster
