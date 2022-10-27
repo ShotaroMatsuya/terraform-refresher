@@ -5,9 +5,9 @@ module "rdsdb" {
 
   identifier = var.db_instance_identifier
 
-  db_name  = var.db_name # Initial Database Name
-  username = var.db_username
-  password = var.db_password
+  db_name  = data.external.aurora_credentials_json.result["dbname"] # Initial Database Name
+  username = data.external.aurora_credentials_json.result["username"]
+  password = data.external.aurora_credentials_json.result["password"]
   port     = 5432
 
 
