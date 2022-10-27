@@ -75,3 +75,23 @@ module "custom_sns" {
   owners         = "matsuya"
   environment    = "test"
 }
+
+module "custom_sfn" {
+  source = "./sfn"
+  depends_on = [
+    module.custom_ecs,
+    module.custom_vpc
+  ]
+  ecs_cluster_name                        = module.custom_ecs.ecs_cluster_name
+  ecs_task_definition_import_licenses_arn = module.custom_ecs.aws_ecs_import_license_task_definition_arn
+  ecs_task_definition_export_rds_arn      = module.custom_ecs.aws_ecs_export_rds_task_definition_arn
+  public_subnets                          = module.custom_vpc.public_subnets
+  fargate_security_group_id               = module.custom_vpc.fargate_sg_group_id
+  import_licenses_task_role_arn           = module.custom_ecs.aws_ecs_import_license_task_role_arn
+  import_licenses_task_execution_role_arn = module.custom_ecs.aws_ecs_import_license_task_execution_role_arn
+  export_rds_task_role_arn                = module.custom_ecs.aws_ecs_export_rds_task_role_arn
+  export_rds_task_execution_role_arn      = module.custom_ecs.aws_ecs_export_rds_task_execution_arn
+
+  owners      = "matsuya"
+  environment = "test"
+}
