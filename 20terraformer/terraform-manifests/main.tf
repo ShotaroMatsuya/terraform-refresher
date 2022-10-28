@@ -118,3 +118,12 @@ module "custom_codebuild" {
   aws_account_id = var.aws_account_id
 }
 
+module "custom_chatbot" {
+  source                     = "./chatbot"
+  sns_topic_arn              = module.custom_sns.sns_topic_arn
+  chatbot_slack_workspace_id = "T02RVJA3YDN"
+  chatbot_slack_id           = "C02R8V82XDH"
+
+  owners      = "matsuya"
+  environment = "test"
+}

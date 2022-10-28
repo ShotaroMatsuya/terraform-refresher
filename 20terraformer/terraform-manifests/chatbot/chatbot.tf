@@ -11,7 +11,7 @@ module "chatbot_slack_configuration" {
   iam_role_arn       = aws_iam_role.chatbot-notification-only.arn
   slack_channel_id   = var.chatbot_slack_id
   slack_workspace_id = var.chatbot_slack_workspace_id
-  sns_topic_arns     = [aws_sns_topic.main.arn]
+  sns_topic_arns     = [var.sns_topic_arn]
   user_role_required = false
   tags               = local.common_tags
 }
