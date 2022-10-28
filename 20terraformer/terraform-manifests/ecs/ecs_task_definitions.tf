@@ -9,7 +9,7 @@ resource "aws_ecs_task_definition" "main" {
       {
         cpu : 0,
         environment : [
-          { name : "APP_NAME", value : "qb-medical_staff-cms" }
+          { name : "APP_NAME", value : "" }
         ],
         essential : true,
         image : var.php_image_uri,
