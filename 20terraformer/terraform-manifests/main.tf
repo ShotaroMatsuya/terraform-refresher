@@ -95,3 +95,15 @@ module "custom_sfn" {
   owners      = "matsuya"
   environment = "test"
 }
+
+module "custom_codepipeline" {
+  source            = "./codepipeline"
+  ecs_service_name  = module.custom_ecs.ecs_cluster_name
+  ecs_cluster_name  = module.custom_ecs.ecs_cluster_name
+  sns_topic_arn     = module.custom_sns.sns_subscription_arn
+  full_repositoy_id = "ShotaroMatsuya/footle"
+
+  owners      = "matsuya"
+  environment = "test"
+  aws_region  = var.aws_region
+}

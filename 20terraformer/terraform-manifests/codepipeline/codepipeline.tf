@@ -1,6 +1,6 @@
 resource "aws_iam_role" "PipelineRole" {
   max_session_duration = "3600"
-  name                 = "${local.name}-PipelineRole-${random_pet.this.id}"
+  name                 = "${local.name}-PipelineRole"
   path                 = "/"
   tags                 = local.common_tags
   assume_role_policy   = <<POLICY
@@ -92,7 +92,7 @@ POLICY
 
 resource "aws_s3_bucket" "artifact" {
   bucket        = "${local.name}-codepipeline-artifacts"
-  force_destroy = true
+  force_destroy = true # TODO: change this
 
   # grant {
   #   id          = "442b44e2c49db7482d68ac975348bf2b481acec1d983d874583f4e5fb95dd1d1"
@@ -147,7 +147,7 @@ resource "aws_codepipeline" "main" {
         BranchName           = "master"
         ConnectionArn        = aws_codestarconnections_connection.main.arn
         DetectChanges        = "true"
-        FullRepositoryId     = "ShotaroMatsuya/footle"
+        FullRepositoryId     = "${var.full_repositoy_id}"
         OutputArtifactFormat = "CODE_ZIP"
       }
 
@@ -186,9 +186,9 @@ resource "aws_codepipeline" "main" {
       category = "Deploy"
 
       configuration = {
-        ClusterName = aws_ecs_cluster.main.name
+        ClusterName = var.ecs_cluster_name
         FileName    = "imagedefinitions.json"
-        ServiceName = aws_ecs_service.main.name
+        ServiceName = var.ecs_service_name
       }
 
       input_artifacts = ["BuildOutput"]
@@ -273,6 +273,6 @@ resource "aws_codestarnotifications_notification_rule" "pipeline" {
   resource = aws_codepipeline.main.arn
 
   target {
-    address = aws_sns_topic.main.arn
+    address = var.sns_topic_arn
   }
 }
