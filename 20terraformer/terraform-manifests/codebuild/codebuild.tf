@@ -1,7 +1,7 @@
 
 resource "aws_iam_role" "BuildProjectRole" {
   description          = "Policy used in trust relationship with CodeBuild"
-  name                 = "CodeBuildBasePolicy-${random_pet.this.id}"
+  name                 = "${local.name}-CodeBuildBasePolicy"
   path                 = "/"
   tags                 = local.common_tags
   max_session_duration = "3600"
@@ -117,7 +117,7 @@ resource "aws_codebuild_project" "main" {
     environment_variable {
       name  = "AWS_ACCOUNT_ID"
       type  = "PLAINTEXT"
-      value = "528163014577"
+      value = var.aws_account_id
     }
   }
   logs_config {
@@ -137,7 +137,7 @@ resource "aws_codebuild_project" "main" {
   service_role       = aws_iam_role.BuildProjectRole.arn
 
   source {
-    buildspec           = "copilot/pipelines/footle-copilot/buildspec.yml"
+    buildspec           = var.buildspec_path
     git_clone_depth     = "0"
     insecure_ssl        = "false"
     report_build_status = "false"

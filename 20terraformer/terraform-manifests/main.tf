@@ -107,3 +107,14 @@ module "custom_codepipeline" {
   environment = "test"
   aws_region  = var.aws_region
 }
+
+module "custom_codebuild" {
+  source         = "./codebuild"
+  buildspec_path = "copilot/pipelines/footle-copilot/buildspec.yml"
+
+  owners         = "matsuya"
+  environment    = "test"
+  aws_region     = var.aws_region
+  aws_account_id = var.aws_account_id
+}
+
